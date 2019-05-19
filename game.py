@@ -18,7 +18,7 @@ def display_result(resultString,scorelist):
         print(j + "\n")
     for i in range(len(scorelist)):
         finalscore = scorelist[i] + finalscore
-    print(round(finalscore,2))
+    print("Final Score : " + str(round(finalscore,2)))
 
 
 class Game:
@@ -83,7 +83,8 @@ class Game:
                         print("\nSuccess!! You guessed it right\n")
                         result = "Success"
                         gamecnt = gamecnt + 1
-                        score = score/misslettercnt
+                        if(misslettercnt > 0):
+                            score = score/misslettercnt
                         scoreRecord.append(score)
                         strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
                                    + "            " + str(misslettercnt) + "              " + str(round(score, 2))
@@ -107,7 +108,8 @@ class Game:
                             score = score - gamefreq
                     gamecnt = gamecnt + 1
                     result = "Gave Up"
-                    score = score/misslettercnt
+                    if(misslettercnt >0):
+                        score = score/misslettercnt
                     scoreRecord.append(score)
                     strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
                                + "            " + str(misslettercnt) + "              " + str(round(score, 2))
@@ -118,6 +120,7 @@ class Game:
                     occurance = 0
                     temp = ""
                     user_letter = raw_input("Enter Letter\n")
+                    user_letter = user_letter.rstrip()
                     if(str1.__contains__(user_letter)):
                         print("Already guessed this. Enter new letter")
                         user_letter = raw_input("Enter Letter\n")
@@ -139,7 +142,8 @@ class Game:
                             result = "Success"
                             print("*** Congrats You did it!!!! ***")
                             gamecnt = gamecnt + 1
-                            score = score/misslettercnt
+                            if(misslettercnt > 0):
+                                score = score/misslettercnt
                             scoreRecord.append(score)
                             strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
                                        + "            " + str(misslettercnt) + "              " + str(round(score, 2))
@@ -162,16 +166,22 @@ class Game:
                             temp1.remove('-')
                             # print(temp1)
                         for i in temp1:
-                            tempfreq = Game.freq[i] + tempfreq
+                            tempfreq = (2 * Game.freq[i]) + tempfreq
+                    tempfreq = tempfreq - (Game.freq[wordlist[0]] + Game.freq[wordlist[1]] + \
+                    Game.freq[wordlist[2]] + Game.freq[wordlist[3]])
                     result = "Gave Up"
                     score = tempfreq
-                    score = score/misslettercnt
+                    if(misslettercnt > 0):
+                        score = score/misslettercnt
+                    scoreRecord.append(score)
                     strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
                                + "            " + str(misslettercnt) + "              " + str(round(score, 2))
                     resultString.append(strfinal)
                     if(len(resultString) == 0):
                         result = "Gave Up"
-                        score = score / misslettercnt
+                        if(misslettercnt > 0):
+                            score = score / misslettercnt
+                        scoreRecord.append(score)
                         strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
                                    + "            " + str(misslettercnt) + "              " + str(round(score, 2))
                         resultString.append(strfinal)
