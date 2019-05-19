@@ -3,7 +3,12 @@ import StringDatabase as sdb
 import game
 import random
 
-def freadwrite():
+''' The main entry point of the game
+    
+    This function calls the Game class methods for the game to begin
+'''
+
+def word_guessing_game():
 
     mydb = sdb.stringDatabase()
     mygame = game.Game()
@@ -16,4 +21,6 @@ def freadwrite():
 
     return
 
-freadwrite()
+
+
+word_guessing_game()
