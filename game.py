@@ -3,6 +3,14 @@ import random
 
 
 def display_result(resultString,scorelist):
+
+    '''
+    Displays the final score when user quits the game
+    :param resultString: List containing results of all the words
+    :param scorelist: List containing scores of all games
+    :return: Final score of the game
+    '''
+
     finalscore = 0
     print("Game  Word  Status  Bad Guesses  Missed Letters  Score\n")
     print("----  ----  ------  -----------  --------------  -----\n")
@@ -10,10 +18,15 @@ def display_result(resultString,scorelist):
         print(j + "\n")
     for i in range(len(scorelist)):
         finalscore = scorelist[i] + finalscore
-    print(finalscore)
+    print(round(finalscore,2))
 
 
 class Game:
+
+    '''
+    This class contains all the data objects and methods required for playing
+    a game.
+    '''
 
     freq = {'a': 8.17, 'b': 1.49, 'c': 2.78, 'd': 4.25, 'e': 12.70, 'f': 2.23, 'g': 2.02,
             'h': 6.09, 'i': 6.97, 'j': 0.15, 'k': 0.77, 'l': 4.03, 'm': 2.41, 'n': 6.75,
@@ -22,9 +35,14 @@ class Game:
 
     def play(self,mylist):
 
+        '''
+        Method for playing a single game
+        :param mylist: List containing all the 4 letter words
+        '''
+
         print("Current guess : ----")
         user_in = 'm'
-        gamecnt = 0
+        gamecnt = 1
         resultString = []
         result = ""
         scoreRecord = []
@@ -57,7 +75,7 @@ class Game:
                             occur = temp1.count('-')
                             for i in range(occur):
                                 temp1.remove('-')
-                                print(temp1)
+                                #print(temp1)
                             for i in temp1:
                                 tempfreq = Game.freq[i] + tempfreq
                         score = (Game.freq[user_word[0]] + Game.freq[user_word[1]] + Game.freq[user_word[2]]
@@ -65,10 +83,10 @@ class Game:
                         print("\nSuccess!! You guessed it right\n")
                         result = "Success"
                         gamecnt = gamecnt + 1
-                        score = round(score, 2)
+                        score = score/misslettercnt
                         scoreRecord.append(score)
                         strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
-                                   + "            " + str(misslettercnt) + "              " + str(score)
+                                   + "            " + str(misslettercnt) + "              " + str(round(score, 2))
                         resultString.append(strfinal)
                         break
                     else:
@@ -87,13 +105,12 @@ class Game:
                         for j in range(4):
                             gamefreq = Game.freq[wordlist[j]]
                             score = score - gamefreq
-                    #print(round(score,2))
                     gamecnt = gamecnt + 1
                     result = "Gave Up"
-                    score = round(score, 2)
+                    score = score/misslettercnt
                     scoreRecord.append(score)
                     strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
-                               + "            " + str(misslettercnt) + "              " + str(score)
+                               + "            " + str(misslettercnt) + "              " + str(round(score, 2))
                     resultString.append(strfinal)
                     break
                 elif (user_in.__eq__('l')):
@@ -122,10 +139,10 @@ class Game:
                             result = "Success"
                             print("*** Congrats You did it!!!! ***")
                             gamecnt = gamecnt + 1
-                            score = round(score, 2)
+                            score = score/misslettercnt
                             scoreRecord.append(score)
                             strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
-                                       + "            " + str(misslettercnt) + "              " + str(score)
+                                       + "            " + str(misslettercnt) + "              " + str(round(score, 2))
                             resultString.append(strfinal)
                             break
                     else:
@@ -137,6 +154,27 @@ class Game:
                         print("\nLetter not present in word !! Try again")
                     cnt = cnt +1
                 elif (user_in.__eq__('q')):
+                    tempfreq = 0
+                    if (tmep != ""):
+                        temp1 = list(tmep)
+                        occur = temp1.count('-')
+                        for i in range(occur):
+                            temp1.remove('-')
+                            # print(temp1)
+                        for i in temp1:
+                            tempfreq = Game.freq[i] + tempfreq
+                    result = "Gave Up"
+                    score = tempfreq
+                    score = score/misslettercnt
+                    strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
+                               + "            " + str(misslettercnt) + "              " + str(round(score, 2))
+                    resultString.append(strfinal)
+                    if(len(resultString) == 0):
+                        result = "Gave Up"
+                        score = score / misslettercnt
+                        strfinal = str(gamecnt) + "     " + str(word) + "  " + result + " " + str(guesscnt) \
+                                   + "            " + str(misslettercnt) + "              " + str(round(score, 2))
+                        resultString.append(strfinal)
                     display_result(resultString,scoreRecord)
                     break
                 else:
