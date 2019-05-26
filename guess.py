@@ -1,23 +1,31 @@
 import StringDatabase as sdb
 import game
 
-def word_guessing_game():
-    ''' The main entry point of the game
 
-        This function calls the Game class methods for the game to begin
+class guess:
+
+    '''
+    Contains the calling of game class
     '''
 
-    mydb = sdb.stringDatabase()
-    mygame = game.Game()
-    mylist = []
+    def word_guessing_game(self):
+        ''' The main entry point of the game
 
-    mylist = mydb.getInputFromFile()
+            This function calls the Game class methods for the game to begin
+        '''
 
-    print("** The great guessing game **")
-    mygame.play(mylist)
+        mydb = sdb.stringDatabase()
+        mygame = game.Game()
+        mylist = []
 
-    return
+        mylist = mydb.getInputFromFile()
+
+        print("** The great guessing game **")
+        mygame.play(mylist)
+
+        return
 
 
 
-word_guessing_game()
+myguess = guess()
+myguess.word_guessing_game()

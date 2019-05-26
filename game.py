@@ -60,7 +60,6 @@ class Game:
             misslettercnt = 0
             strfinal = ""
             str1 = ["-","-","-","-"]
-            #print(wordlist)
 
             while(cnt < 26):
 
@@ -127,11 +126,12 @@ class Game:
                     if(user_letter in wordlist):
                         occurance = wordlist.count(user_letter)
                         print("\n You found " + str(occurance) + " letter/s" )
+                        wordlist1 = list(word)
                         while(tempcnt < occurance):
-                            ind = wordlist.index(user_letter)
+                            ind = wordlist1.index(user_letter)
                             str1[ind] = user_letter
                             tmep = temp.join(str1)
-                            wordlist[ind] = '+'
+                            wordlist1[ind] = '+'
                             tempcnt = tempcnt+1
                             score = score + Game.freq[user_letter]
                         if (tmep.__eq__("")):
@@ -167,8 +167,7 @@ class Game:
                             # print(temp1)
                         for i in temp1:
                             tempfreq = (2 * Game.freq[i]) + tempfreq
-                    tempfreq = tempfreq - (Game.freq[wordlist[0]] + Game.freq[wordlist[1]] + \
-                    Game.freq[wordlist[2]] + Game.freq[wordlist[3]])
+                    tempfreq = tempfreq - (Game.freq[wordlist[0]] + Game.freq[wordlist[1]] + Game.freq[wordlist[2]] + Game.freq[wordlist[3]])
                     result = "Gave Up"
                     score = tempfreq
                     if(misslettercnt > 0):
